@@ -801,11 +801,7 @@ class Gitlab(object):
             data['sudo'] = sudo
         request = requests.post(self.projects_url + "/" + str(id_) + "/issues",
                                 headers=self.headers, data=data, verify=self.verify_ssl)
-        if request.status_code == 201:
-            return True
-        else:
-            
-            return False
+        return (request.status_code == 201, request)
 
     def editissue(self, id_, issue_id, title="", description="",
                   assignee_id="", milestone_id="", labels="",
